@@ -69,7 +69,8 @@ behaviour_info(_) ->
 %%       Result = {ok, pid()} | {error, any()}
 %% @doc Start server listening on IpAddr:Port
 start_link(CallbackModule, InitParams) ->
-    gen_server:start_link(?MODULE, [CallbackModule, InitParams], [{fullsweep_after, 0}]).
+    gen_server:start_link(?MODULE, [CallbackModule, InitParams],
+                [{spawn_opt, [{fullsweep_after, 0}]}]).
 
 %% @spec start_link(Name, CallbackModule, InitParams) -> Result
 %%       Name = {local, atom()} | {global, atom()}
@@ -78,7 +79,8 @@ start_link(CallbackModule, InitParams) ->
 %%       Result = {ok, pid()} | {error, any()}
 %% @doc Start server listening on IpAddr:Port registered as Name
 start_link(Name, CallbackModule, InitParams) ->
-    gen_server:start_link(Name, ?MODULE, [CallbackModule, InitParams], [{fullsweep_after, 0}]).
+    gen_server:start_link(Name, ?MODULE, [CallbackModule, InitParams],
+                [{spawn_opt, [{fullsweep_after, 0}]}]).
 
 %% @spec get_cb_state(#state{}) -> any()
 %% @doc Extracts the callback module's state from the server's overall state
